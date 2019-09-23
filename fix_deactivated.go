@@ -128,7 +128,7 @@ func main() {
 	log.Println("Getting deactivated users list...")
 
 	var count int
-	row := db.QueryRowContext(ctx, "select count(*) from SOC_IDENTITIES where DELETED=1 and ENABLED=0")
+	row := db.QueryRowContext(ctx, "select count(*) from SOC_IDENTITIES where ENABLED=0")
 
 	if err := row.Scan(&count); err != nil {
 		panic(err.Error())
@@ -136,7 +136,7 @@ func main() {
 
 	log.Printf("%d deactivated users found", count)
 
-	rows, err := db.QueryContext(ctx, "select REMOTE_ID from SOC_IDENTITIES where DELETED=1 and ENABLED=0")
+	rows, err := db.QueryContext(ctx, "select REMOTE_ID from SOC_IDENTITIES where ENABLED=0")
 	if err != nil {
 		panic(err.Error())
 	}
